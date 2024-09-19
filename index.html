@@ -2,16 +2,25 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>صفحة الواقع المعزز</title>
+    <title>تحميل وعرض مجسم ثلاثي الأبعاد</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- تضمين مكتبة AR.js -->
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
     <style>
         body, html { margin: 0; padding: 0; overflow: hidden; }
+        #file-input {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 2;
+        }
     </style>
 </head>
 <body>
+    <!-- زر لتحميل ملف ثلاثي الأبعاد -->
+    <input type="file" id="file-input" accept=".gltf, .glb" />
+
     <a-scene 
         embedded 
         arjs="sourceType: webcam; debugUIEnabled: false;" 
@@ -19,16 +28,37 @@
         
         <!-- تعريف العلامة باستخدام نموذج QR -->
         <a-marker type="barcode" value="5">
-            <!-- مجسم ثلاثي الأبعاد بحجم أكبر -->
-            <a-entity 
-                position="0 0 0" 
-                scale="2 2 2"  <!-- تم تغيير الحجم إلى 2 2 2 -->
-                gltf-model="https://drive.google.com/uc?export=download&id=1KvDxNVSdsGlFbwF_BsAGQmjRNBVCl7TE">
-            </a-entity>
+            <!-- عنصر لعرض المجسم الذي سيتم تحميله -->
+            <a-entity id="uploaded-model" position="0 0 0" scale="2 2 2"></a-entity>
         </a-marker>
         
         <!-- كاميرا الواقع المعزز -->
         <a-entity camera></a-entity>
     </a-scene>
+
+    <script>
+        // مرجع لعناصر HTML
+        const fileInput = document.getElementById('file-input');
+        const modelEntity = document.getElementById('uploaded-model');
+
+        // حدث عند تحميل ملف
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    // إنشاء رابط مؤقت للملف المحمل
+                    const modelUrl = e.target.result;
+
+                    // تحديث النموذج ثلاثي الأبعاد في العنصر
+                    modelEntity.setAttribute('gltf-model', modelUrl);
+                };
+
+                // قراءة الملف كـ URL
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 </body>
 </html>
