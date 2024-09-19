@@ -2,63 +2,57 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>عرض نموذج GLB في الواقع المعزز</title>
+    <title>عرض وتحميل نماذج ثلاثية الأبعاد</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- تضمين مكتبة AR.js -->
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
-    <style>
-        body, html { margin: 0; padding: 0; overflow: hidden; }
-        #file-input {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 2;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- زر لتحميل ملف ثلاثي الأبعاد -->
-    <input type="file" id="file-input" accept=".gltf, .glb" />
+    <header id="header">
+        <h1>عرض وتحميل نماذج ثلاثية الأبعاد</h1>
+    </header>
 
-    <a-scene 
-        embedded 
-        arjs="sourceType: webcam; debugUIEnabled: false;" 
-        vr-mode-ui="enabled: false">
+    <main>
+        <section id="upload-form">
+            <input type="file" id="file-input" accept=".gltf, .glb" />
+            <button type="button" onclick="generateQRCode()">توليد رمز QR</button>
+        </section>
+
+        <section id="view-options">
+            <select id="view-option">
+                <option value="world">عرض في عالم مفتوح</option>
+                <option value="marker">عرض ثابت على ورقة</option>
+            </select>
+        </section>
+
+        <section id="controls">
+            <button id="move-up">تحريك لأعلى</button>
+            <button id="move-down">تحريك لأسفل</button>
+            <button id="rotate-left">تدوير لليسار</button>
+            <button id="rotate-right">تدوير لليمين</button>
+            <button id="zoom-in">تكبير</button>
+            <button id="zoom-out">تصغير</button>
+        </section>
+
+        <section id="qr-code"></section>
+
+        <!-- تضمين الـ iframe -->
+        <iframe src="https://mywebar.com/p/female_ar_avatarjxa1bw2b9s" frameborder="0" scrolling="yes" seamless="seamless" style="display:block; width:100%; height:100vh;" allow="camera;gyroscope;accelerometer;magnetometer;xr-spatial-tracking;microphone;"></iframe>
         
-        <!-- تعريف العلامة باستخدام نموذج QR -->
-        <a-marker type="barcode" value="5">
-            <!-- عنصر لعرض المجسم الذي سيتم تحميله -->
-            <a-entity id="uploaded-model" position="0 0 -3" scale="1 1 1" gltf-model="https://raw.githubusercontent.com/aryaishassds/ar/main/%D8%AD%D9%84%D8%B2%D9%88%D9%86.glb"></a-entity>
-        </a-marker>
-        
-        <!-- كاميرا الواقع المعزز -->
-        <a-entity camera></a-entity>
-    </a-scene>
+        <a-scene 
+            embedded 
+            arjs="sourceType: webcam; debugUIEnabled: false;" 
+            vr-mode-ui="enabled: false">
+            <a-marker id="marker" type="barcode" value="5">
+                <a-entity id="uploaded-model" position="1 0 0" scale="1 1 1"></a-entity>
+            </a-marker>
+            <a-entity id="world-view" position="0 0 -5" scale="1 1 1"></a-entity>
+            <a-entity camera></a-entity>
+        </a-scene>
+    </main>
 
-    <script>
-        // مرجع لعناصر HTML
-        const fileInput = document.getElementById('file-input');
-        const modelEntity = document.getElementById('uploaded-model');
-
-        // حدث عند تحميل ملف
-        fileInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    // إنشاء رابط مؤقت للملف المحمل
-                    const modelUrl = e.target.result;
-
-                    // تحديث النموذج ثلاثي الأبعاد في العنصر
-                    modelEntity.setAttribute('gltf-model', modelUrl);
-                };
-
-                // قراءة الملف كـ URL
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>
