@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AR Model Viewer</title>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    model-viewer {
+      width: 100%;
+      height: 500px;
+    }
+  </style>
+</head>
+<body>
+  <h1>عرض نموذج ثلاثي الأبعاد مع دعم الواقع المعزز</h1>
+
+  <!-- نموذج ثلاثي الأبعاد مع دعم AR -->
+  <model-viewer src="https://drive.google.com/uc?export=download&id=1pqTjuIcStsikC9FLtTKDnZwHgphs0UP6" 
+                alt="نموذج ثلاثي الأبعاد" 
+                ar 
+                ar-modes="webxr scene-viewer quick-look" 
+                camera-controls 
+                auto-rotate 
+                shadow-intensity="1">
+  </model-viewer>
+
+</body>
+</html>
