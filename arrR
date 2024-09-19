@@ -29,7 +29,7 @@
         <!-- تعريف العلامة باستخدام نموذج QR -->
         <a-marker type="barcode" value="5">
             <!-- عنصر لعرض المجسم الذي سيتم تحميله -->
-            <a-entity id="uploaded-model" position="0 0 0" scale="2 2 2" gltf-model="https://raw.githubusercontent.com/aryaishassds/ar/main/%D8%AD%D9%84%D8%B2%D9%88%D9%86.glb"></a-entity>
+            <a-entity id="uploaded-model" position="0 0 -3" scale="1 1 1" gltf-model="https://raw.githubusercontent.com/aryaishassds/ar/main/%D8%AD%D9%84%D8%B2%D9%88%D9%86.glb"></a-entity>
         </a-marker>
         
         <!-- كاميرا الواقع المعزز -->
