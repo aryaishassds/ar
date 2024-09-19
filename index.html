@@ -2,7 +2,7 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>تحميل وعرض مجسم ثلاثي الأبعاد</title>
+    <title>عرض نموذج GLB في الواقع المعزز</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- تضمين مكتبة AR.js -->
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
@@ -29,7 +29,7 @@
         <!-- تعريف العلامة باستخدام نموذج QR -->
         <a-marker type="barcode" value="5">
             <!-- عنصر لعرض المجسم الذي سيتم تحميله -->
-            <a-entity id="uploaded-model" position="0 0 0" scale="2 2 2"></a-entity>
+            <a-entity id="uploaded-model" position="0 0 0" scale="2 2 2" gltf-model="https://raw.githubusercontent.com/aryaishassds/ar/main/%D8%AD%D9%84%D8%B2%D9%88%D9%86.glb"></a-entity>
         </a-marker>
         
         <!-- كاميرا الواقع المعزز -->
